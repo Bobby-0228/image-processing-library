@@ -55,6 +55,21 @@ void BMP::write(std::string filename)
     std::cout << "BMP file [" << filename << "] was written successfully." << std::endl;
 }
 
+void BMP::replaceRaw(std::vector<uint8_t>&& newData, int newWidth, int newHeight, int newRowSize)
+{
+    header.width = newWidth;
+    header.height = newHeight;
+    rowSize_ = newRowSize;
+    imageSize_ = static_cast<int>(newData.size());
+    header.imageSize = static_cast<uint32_t>(imageSize_);
+
+    width_ = newWidth;
+    height_ = newHeight;
+    pixelCount_ = newWidth * newHeight;
+
+    imageData_ = std::move(newData);
+}
+
 BMP::iterator BMP::begin()
 {
     return imageData_.begin();

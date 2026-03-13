@@ -13,5 +13,5 @@ void crop(BMP& bmp, int x, int y, int w, int h);
 void flip_horizontally(BMP& bmp);
 BMP flip_vertically(const BMP& bmp);
 
-#endif // BASIC_H
+#endif
 
