@@ -57,22 +57,24 @@ void crop(BMP& bmp, int x, int y, int w, int h)
     bmp.header.imageSize = bmp.imageSize_;
 }
 
-void flip_horizontally(BMP& bmp)
+BMP flip_horizontally(const BMP& bmp)
 {
-    for (int y = 0; y < bmp.height(); y++)
+    BMP out = bmp;
+    for (int y = 0; y < out.height(); y++)
     {
-        for (int x = 0; x < bmp.width() / 2; x++)
+        for (int x = 0; x < out.width() / 2; x++)
         {
-            uint8_t* left  = bmp.pixelPtr(x, y);
-            uint8_t* right = bmp.pixelPtr(bmp.width() - 1 - x, y);
+            uint8_t* left  = out.pixelPtr(x, y);
+            uint8_t* right = out.pixelPtr(out.width() - 1 - x, y);
 
-            for (int c = 0; c < bmp.bytesPerPixel(); c++)
+            for (int c = 0; c < out.bytesPerPixel(); c++)
             {
                 //swap the pixel 
                 std::swap(left[c], right[c]);
             }
         }
     }
+    return out;
 }
 
 BMP flip_vertically(const BMP& bmp)
