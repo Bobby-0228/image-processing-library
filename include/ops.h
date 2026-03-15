@@ -20,8 +20,8 @@ void ConvInplace(BMP& bmp, const std::vector<std::vector<double>>& kernel);
 BMP ApplyMedianFilter(const BMP& bmp, int filterSize);
 void ApplyMedianFilterInplace(BMP& bmp, int filterSize);
 
-BMP FastNlMeansDenoise(const BMP& bmp, float h, float hColor, int templateWindowSize, int searchWindowSize);
-void FastNlMeansDenoiseInplace(BMP& bmp, float h, float hColor, int templateWindowSize, int searchWindowSize);
+BMP ApplyNlMeans(const BMP& bmp, float h, float hColor, int templateWindowSize, int searchWindowSize);
+void ApplyNlMeansInplace(BMP& bmp, float h, float hColor, int templateWindowSize, int searchWindowSize);
 
 // color operations
 BMP CorrectColorTemperature(const BMP& bmp, bool mode);

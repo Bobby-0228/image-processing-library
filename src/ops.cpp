@@ -235,14 +235,14 @@ void ApplyMedianFilterInplace(BMP& bmp, int filterSize)
     bmp.replaceRaw(std::move(outData), width, height, bmp.rowSize());
 }
 
-BMP FastNlMeansDenoise(const BMP& bmp, float h, float hColor, int templateWindowSize, int searchWindowSize)
+BMP ApplyNlMeans(const BMP& bmp, float h, float hColor, int templateWindowSize, int searchWindowSize)
 {
     BMP out = bmp;
-    FastNlMeansDenoiseInplace(out, h, hColor, templateWindowSize, searchWindowSize);
+    ApplyNlMeansInplace(out, h, hColor, templateWindowSize, searchWindowSize);
     return out;
 }
 
-void FastNlMeansDenoiseInplace(BMP& bmp, float h, float hColor, int templateWindowSize, int searchWindowSize)
+void ApplyNlMeansInplace(BMP& bmp, float h, float hColor, int templateWindowSize, int searchWindowSize)
 {
 
     if (searchWindowSize % 2 == 0) searchWindowSize += 1;
@@ -256,7 +256,7 @@ void FastNlMeansDenoiseInplace(BMP& bmp, float h, float hColor, int templateWind
     const int bytesPerPixel = bmp.bytesPerPixel();
     if (bytesPerPixel < 3)
     {
-        std::cerr << "FastNlMeansDenoise expects at least 3 channels." << std::endl;
+        std::cerr << "ApplyNlMeans expects at least 3 channels." << std::endl;
         return;
     }
 
