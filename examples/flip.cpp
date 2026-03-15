@@ -1,6 +1,5 @@
 #include "bmp.h"
 #include "basic.h"
-#include "ops.h"
 
 int main()
 {
