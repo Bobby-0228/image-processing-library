@@ -10,13 +10,14 @@ uint8_t convertBit(uint8_t value, int bit)
     return ((value >> (8 - bit)) << (8 - bit));
 }
 
-BMP quantize_resolution(BMP bmp, int targetBit)
+BMP quantize_resolution(const BMP& bmp, int targetBit)
 {
-    for (auto &pixel : bmp)
+    BMP out = bmp;
+    for (auto &pixel : out)
     {
         pixel = convertBit(pixel, targetBit);
     }
-    return bmp;
+    return out;
 }
 
 void crop(BMP& bmp, int x, int y, int w, int h)

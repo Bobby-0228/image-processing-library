@@ -7,7 +7,7 @@ class BMP;
 
 uint8_t convertBit(uint8_t value, int bit);
 
-BMP quantize_resolution(BMP bmp, int targetBit);
+BMP quantize_resolution(const BMP& bmp, int targetBit);
 
 void crop(BMP& bmp, int x, int y, int w, int h);
 BMP flip_horizontally(const BMP& bmp);
