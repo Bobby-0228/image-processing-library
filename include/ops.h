@@ -6,16 +6,32 @@
 
 class BMP;
 
+// Mirror padding
 BMP MirrorPad(const BMP& bmp, int paddingSize);
-void CorrectGamma(BMP& bmp, double G);
-void Conv(BMP& bmp, const std::vector<std::vector<double>>& kernel);
-void ApplyMedianFilter(BMP& bmp, int filterSize);
-void FastNlMeansDenoise(BMP& bmp, float h, float hColor, int templateWindowSize, int searchWindowSize);
+void MirrorPadInplace(BMP& bmp, int paddingSize);
+
+// Gamma / convolution / filters
+BMP CorrectGamma(const BMP& bmp, double G);
+void CorrectGammaInplace(BMP& bmp, double G);
+
+BMP Conv(const BMP& bmp, const std::vector<std::vector<double>>& kernel);
+void ConvInplace(BMP& bmp, const std::vector<std::vector<double>>& kernel);
+
+BMP ApplyMedianFilter(const BMP& bmp, int filterSize);
+void ApplyMedianFilterInplace(BMP& bmp, int filterSize);
+
+BMP FastNlMeansDenoise(const BMP& bmp, float h, float hColor, int templateWindowSize, int searchWindowSize);
+void FastNlMeansDenoiseInplace(BMP& bmp, float h, float hColor, int templateWindowSize, int searchWindowSize);
 
 // color operations
-void CorrectColorTemperature(BMP& bmp, bool mode);
-void EnhanceImage(BMP& bmp, double hueShift, double saturationFactor, double intensityFactor);
-void AdjustTemp(BMP& bmp, double CbShift, double CrShift);
+BMP CorrectColorTemperature(const BMP& bmp, bool mode);
+void CorrectColorTemperatureInplace(BMP& bmp, bool mode);
+
+BMP EnhanceImage(const BMP& bmp, double hueShift, double saturationFactor, double intensityFactor);
+void EnhanceImageInplace(BMP& bmp, double hueShift, double saturationFactor, double intensityFactor);
+
+BMP AdjustTemp(const BMP& bmp, double CbShift, double CrShift);
+void AdjustTempInplace(BMP& bmp, double CbShift, double CrShift);
 
 #endif
 

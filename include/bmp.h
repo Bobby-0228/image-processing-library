@@ -7,7 +7,7 @@
 
 class BMP
 {
-    friend void crop(BMP&, int, int, int, int);
+    friend void cropInplace(BMP&, int, int, int, int);
 
 private:
     #pragma pack(push, 1)

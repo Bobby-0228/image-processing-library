@@ -12,10 +12,17 @@
 
 BMP MirrorPad(const BMP& bmp, int paddingSize)
 {
+    BMP out = bmp;
+    MirrorPadInplace(out, paddingSize);
+    return out;
+}
+
+void MirrorPadInplace(BMP& bmp, int paddingSize)
+{
     if (paddingSize <= 0)
     {
         std::cerr << "Padding size must be positive." << std::endl;
-        return bmp;
+        return;
     }
 
     const int bytesPerPixel = bmp.bytesPerPixel();
@@ -93,12 +100,17 @@ BMP MirrorPad(const BMP& bmp, int paddingSize)
         }
     }
 
+    bmp.replaceRaw(std::move(paddedData), newWidth, newHeight, newRowSize);
+}
+
+BMP CorrectGamma(const BMP& bmp, double G)
+{
     BMP out = bmp;
-    out.replaceRaw(std::move(paddedData), newWidth, newHeight, newRowSize);
+    CorrectGammaInplace(out, G);
     return out;
 }
 
-void CorrectGamma(BMP& bmp, double G)
+void CorrectGammaInplace(BMP& bmp, double G)
 {
     for (auto& pixel : bmp)
     {
@@ -106,7 +118,14 @@ void CorrectGamma(BMP& bmp, double G)
     }
 }
 
-void Conv(BMP& bmp, const std::vector<std::vector<double>>& kernel)
+BMP Conv(const BMP& bmp, const std::vector<std::vector<double>>& kernel)
+{
+    BMP out = bmp;
+    ConvInplace(out, kernel);
+    return out;
+}
+
+void ConvInplace(BMP& bmp, const std::vector<std::vector<double>>& kernel)
 {
     const int kernelSize = static_cast<int>(kernel.size());
     if (kernelSize == 0 || kernelSize % 2 == 0 || kernelSize != static_cast<int>(kernel[0].size()))
@@ -153,7 +172,14 @@ void Conv(BMP& bmp, const std::vector<std::vector<double>>& kernel)
     }
 }
 
-void ApplyMedianFilter(BMP& bmp, int filterSize)
+BMP ApplyMedianFilter(const BMP& bmp, int filterSize)
+{
+    BMP out = bmp;
+    ApplyMedianFilterInplace(out, filterSize);
+    return out;
+}
+
+void ApplyMedianFilterInplace(BMP& bmp, int filterSize)
 {
     if (filterSize % 2 == 0 || filterSize < 3)
     {
@@ -209,7 +235,14 @@ void ApplyMedianFilter(BMP& bmp, int filterSize)
     bmp.replaceRaw(std::move(outData), width, height, bmp.rowSize());
 }
 
-void FastNlMeansDenoise(BMP& bmp, float h, float hColor, int templateWindowSize, int searchWindowSize)
+BMP FastNlMeansDenoise(const BMP& bmp, float h, float hColor, int templateWindowSize, int searchWindowSize)
+{
+    BMP out = bmp;
+    FastNlMeansDenoiseInplace(out, h, hColor, templateWindowSize, searchWindowSize);
+    return out;
+}
+
+void FastNlMeansDenoiseInplace(BMP& bmp, float h, float hColor, int templateWindowSize, int searchWindowSize)
 {
 
     if (searchWindowSize % 2 == 0) searchWindowSize += 1;
@@ -323,7 +356,14 @@ void FastNlMeansDenoise(BMP& bmp, float h, float hColor, int templateWindowSize,
     bmp.replaceRaw(std::move(denoisedData), width, height, rowSize);
 }
 
-void CorrectColorTemperature(BMP& bmp, bool mode)
+BMP CorrectColorTemperature(const BMP& bmp, bool mode)
+{
+    BMP out = bmp;
+    CorrectColorTemperatureInplace(out, mode);
+    return out;
+}
+
+void CorrectColorTemperatureInplace(BMP& bmp, bool mode)
 {
     const int width = bmp.width();
     const int height = bmp.height();
@@ -389,7 +429,14 @@ void CorrectColorTemperature(BMP& bmp, bool mode)
     }
 }
 
-void EnhanceImage(BMP& bmp, double hueShift, double saturationFactor, double intensityFactor)
+BMP EnhanceImage(const BMP& bmp, double hueShift, double saturationFactor, double intensityFactor)
+{
+    BMP out = bmp;
+    EnhanceImageInplace(out, hueShift, saturationFactor, intensityFactor);
+    return out;
+}
+
+void EnhanceImageInplace(BMP& bmp, double hueShift, double saturationFactor, double intensityFactor)
 {
     const int width = bmp.width();
     const int height = bmp.height();
@@ -425,7 +472,14 @@ void EnhanceImage(BMP& bmp, double hueShift, double saturationFactor, double int
     }
 }
 
-void AdjustTemp(BMP& bmp, double CbShift, double CrShift)
+BMP AdjustTemp(const BMP& bmp, double CbShift, double CrShift)
+{
+    BMP out = bmp;
+    AdjustTempInplace(out, CbShift, CrShift);
+    return out;
+}
+
+void AdjustTempInplace(BMP& bmp, double CbShift, double CrShift)
 {
     const int width = bmp.width();
     const int height = bmp.height();

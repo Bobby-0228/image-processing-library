@@ -13,14 +13,26 @@ uint8_t convertBit(uint8_t value, int bit)
 BMP quantize_resolution(const BMP& bmp, int targetBit)
 {
     BMP out = bmp;
-    for (auto &pixel : out)
-    {
-        pixel = convertBit(pixel, targetBit);
-    }
+    quantize_resolutionInplace(out, targetBit);
     return out;
 }
 
-void crop(BMP& bmp, int x, int y, int w, int h)
+void quantize_resolutionInplace(BMP& bmp, int targetBit)
+{
+    for (auto &pixel : bmp)
+    {
+        pixel = convertBit(pixel, targetBit);
+    }
+}
+
+BMP crop(const BMP& bmp, int x, int y, int w, int h)
+{
+    BMP out = bmp;
+    cropInplace(out, x, y, w, h);
+    return out;
+}
+
+void cropInplace(BMP& bmp, int x, int y, int w, int h)
 {
     // Validate the input crop area
     if (x < 0 || y < 0 || x + w > bmp.header.width || y + h > bmp.header.height)
@@ -61,38 +73,48 @@ void crop(BMP& bmp, int x, int y, int w, int h)
 BMP flip_horizontally(const BMP& bmp)
 {
     BMP out = bmp;
-    for (int y = 0; y < out.height(); y++)
-    {
-        for (int x = 0; x < out.width() / 2; x++)
-        {
-            uint8_t* left  = out.pixelPtr(x, y);
-            uint8_t* right = out.pixelPtr(out.width() - 1 - x, y);
+    flip_horizontallyInplace(out);
+    return out;
+}
 
-            for (int c = 0; c < out.bytesPerPixel(); c++)
+void flip_horizontallyInplace(BMP& bmp)
+{
+    for (int y = 0; y < bmp.height(); y++)
+    {
+        for (int x = 0; x < bmp.width() / 2; x++)
+        {
+            uint8_t* left  = bmp.pixelPtr(x, y);
+            uint8_t* right = bmp.pixelPtr(bmp.width() - 1 - x, y);
+
+            for (int c = 0; c < bmp.bytesPerPixel(); c++)
             {
                 //swap the pixel 
                 std::swap(left[c], right[c]);
             }
         }
     }
-    return out;
 }
 
 BMP flip_vertically(const BMP& bmp)
 {
     BMP out = bmp;
-    for (int y = 0; y < out.height() / 2; y++)
+    flip_verticallyInplace(out);
+    return out;
+}
+
+void flip_verticallyInplace(BMP& bmp)
+{
+    for (int y = 0; y < bmp.height() / 2; y++)
     {
-        for (int x = 0; x < out.width(); x++)
+        for (int x = 0; x < bmp.width(); x++)
         {
-            uint8_t* top = out.pixelPtr(x, y);
-            uint8_t* bottom = out.pixelPtr(x, out.height() - 1 - y);
-            for (int c = 0; c < out.bytesPerPixel(); c++)
+            uint8_t* top = bmp.pixelPtr(x, y);
+            uint8_t* bottom = bmp.pixelPtr(x, bmp.height() - 1 - y);
+            for (int c = 0; c < bmp.bytesPerPixel(); c++)
             {
                 std::swap(top[c], bottom[c]);
             }
         }
     }
-    return out;
 }
 
