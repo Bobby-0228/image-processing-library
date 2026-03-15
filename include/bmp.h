@@ -50,6 +50,7 @@ public:
 
     void read(std::string filename);
     void write(std::string filename);
+    void replaceRaw(std::vector<uint8_t>&& newData, int newWidth, int newHeight, int newRowSize);
 
     int height() const;
     int width() const;
@@ -69,8 +70,6 @@ public:
     uint8_t& at(int x, int y, int c);
     const uint8_t& at(int x, int y, int c) const;
 
-    // Controlled mutation helpers for ops (keeps imageData_ private)
-    void replaceRaw(std::vector<uint8_t>&& newData, int newWidth, int newHeight, int newRowSize);
 };
 
 #endif

@@ -197,6 +197,7 @@ void ApplyMedianFilter(BMP& bmp, int filterSize)
                     }
                 }
 
+                // find the median value
                 std::nth_element(channel.begin(), channel.begin() + channel.size() / 2, channel.end());
                 const uint8_t med = channel[channel.size() / 2];
 
