@@ -356,6 +356,7 @@ void ApplyNlMeansInplace(BMP& bmp, float h, float hColor, int templateWindowSize
     bmp.replaceRaw(std::move(denoisedData), width, height, rowSize);
 }
 
+// mode=0 -> gray world    mode=1 -> max RGB
 BMP CorrectColorTemperature(const BMP& bmp, bool mode)
 {
     BMP out = bmp;
@@ -363,6 +364,7 @@ BMP CorrectColorTemperature(const BMP& bmp, bool mode)
     return out;
 }
 
+// mode=0 -> gray world    mode=1 -> max RGB
 void CorrectColorTemperatureInplace(BMP& bmp, bool mode)
 {
     const int width = bmp.width();
