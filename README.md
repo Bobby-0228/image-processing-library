@@ -9,10 +9,10 @@ A C++ image processing library on BMP images, featuring classical operations and
 ├── include/         # Library headers
 ├── src/             # Library implementation
 ├── examples/        # Example programs
-├── images/          # Images for input and output
+├── images/          # Input and output images used in examples
 ├── assets/          # Images for README
-├── bin/
-├── build/
+├── bin/             # (gitignored)
+├── build/           # (gitignored)
 ├── Makefile
 └── README.md
 ```
