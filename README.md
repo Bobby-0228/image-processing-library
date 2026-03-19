@@ -57,7 +57,7 @@ Source: `src/basic.cpp`
 |:---:|:---:|:---:|
 |<img src="images/inputs/normal/mountain.bmp" width="300">|<img src="images/outputs/mountain_flip_hor.bmp" width="300">|<img src="images/outputs/mountain_flip_ver.bmp" width="300">|
 
-### Crop [`examples/crop.cpp`](examples/crop.cpp)
+### Cropping [`examples/crop.cpp`](examples/crop.cpp)
 Source: `src/basic.cpp`
 - [`BMP crop(const BMP& bmp, int x, int y, int w, int h)`](src/basic.cpp#L28)
 - [`void cropInplace(BMP& bmp, int x, int y, int w, int h)`](src/basic.cpp#L35)
