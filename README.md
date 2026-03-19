@@ -81,10 +81,13 @@ Source: `src/ops.cpp`
 - [`BMP CorrectGamma(const BMP& bmp, double G)`](src/ops.cpp#L106)
 - [`void CorrectGammaInplace(BMP& bmp, double G)`](src/ops.cpp#L113)
 
-The image $ I $ is corrected using formula:
-$$ O=I^\frac{1}{G} $$
-Pixel values should be normalized to the range [0, 1]. For 8-bit pixel values in the range [0, 255], the formula becomes: 
-$$ O=({\frac{I}{255}})^\frac{1}{G} \times 255 $$
+The image $I$ is corrected using formula:
+
+$$O=I^\frac{1}{G}$$
+
+Pixel values should be normalized to the range [0, 1]. For 8-bit pixel values in the range [0, 255], the formula becomes:
+
+$$O=({\frac{I}{255}})^\frac{1}{G} \times 255$$
 
 | &nbsp;Original&nbsp; | Enhanced (G=2.5) |
 |:---:|:---:|
